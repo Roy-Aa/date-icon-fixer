@@ -35,15 +35,18 @@ Perfect if you're tired of inconsistent styling and want to deliver a more unifi
 
 ## Screenshots
 
-****
+**Wordpress Admin**
 ![WordPressAdmin](assets/img/wordpress-admin.png)
 
-****
+**Preview**
 ![Preview](assets/img/preview.png)
 
 ---
 
 ## Frequently Asked Questions
+
+**Can I fully customize the Flatpickr date selector?**
+Yes, you can fully customize the date selector. Flatpickr allows you to adjust the appearance, behavior, and settings to fit your needs. You can change the date format, disable specific dates, add custom styles, and much more.
 
 **Can I disable Flatpickr on certain forms?**  
 Currently, the plugin replaces all date inputs site-wide. Fine-grained control may be added in future updates.
