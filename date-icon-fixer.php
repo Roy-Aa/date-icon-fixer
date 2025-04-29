@@ -245,7 +245,7 @@ function date_icon_fixer_settings_page()
 
         <div class="dif-footer">
             <p>Plugin by <a href="https://royaardenburg.nl" target="_blank">Roy Aardenburg</a></p>
-            <p>Plugin is open source and available on <a href="">GitHub</a>.</p>
+            <p>Plugin is open source and available on <a href="https://github.com/Roy-Aa/date-icon-fixer">GitHub</a>.</p>
         </div>
     </div>
     <style>

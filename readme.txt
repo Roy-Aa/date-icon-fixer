@@ -42,4 +42,4 @@ Just activate and you're good to go!
 
 == Credits ==
 Plugin developed by [Roy Aardenburg](https://royaardenburg.nl).
-Open source and available on [GitHub](https://github.com/jouw-repo).
+Open source and available on [GitHub](https://github.com/Roy-Aa/date-icon-fixer).
