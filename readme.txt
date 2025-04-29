@@ -4,7 +4,7 @@ Tags: date, input, flatpickr, calendar, firefox
 Requires at least: 5.0
 Tested up to: 6.5
 Requires PHP: 7.2
-Stable tag: 1.2
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,7 +23,6 @@ Perfect if you're tired of inconsistent styling or want to deliver a more unifie
 ✅ Firefox-friendly — no more native icon  
 ✅ Enable or disable the feature from your WordPress dashboard
 ✅ Works with Contact Form 7
-
 
 Just activate and you're good to go!
 

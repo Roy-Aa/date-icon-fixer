@@ -1,17 +1,76 @@
-# date-icon-fixer
+# Date Icon Fixer
 
-Date Icon Fixer plugin for WordPress
+**Date Icon Fixer** is a WordPress plugin that removes default calendar icons from HTML `<input type="date">` fields — especially that stubborn one in Firefox 😉.  
+It replaces the native browser date pickers with [Flatpickr](https://flatpickr.js.org/), a lightweight and highly customizable JavaScript calendar.
 
-Removes all default calendar icons from HTML `<input type="date">` fields — especially that stubborn one in Firefox 😉.
+Perfect if you're tired of inconsistent styling and want to deliver a more unified user experience across all browsers.
 
-This plugin replaces native browser date pickers with the lightweight and fully customizable Flatpickr calendar, giving you full control over the look and behavior of your date inputs.
+---
 
-Perfect if you're tired of inconsistent styling or want to deliver a more unified user experience across browsers.
+## Features
 
-✅ Replaces `<input type="date">` with Flatpickr  
-✅ Fully local, no CDN required  
-✅ Firefox-friendly — no more native icon  
-✅ Enable or disable the feature from your WordPress dashboard
-✅ Works with Contact Form 7
+- ✅ Replaces native `<input type="date">` with Flatpickr
+- ✅ Fully local (no external CDN required)
+- ✅ Firefox-friendly — removes native icons completely
+- ✅ Toggle the feature on/off from your WordPress dashboard
+- ✅ Seamless integration with Contact Form 7
+- ✅ Lightweight and customizable
 
-Plugin made by [Roy Aardenburg](https://royaardenburg.nl/)
+---
+
+## Installation
+
+1. Upload the plugin files to the `/wp-content/plugins/date-icon-fixer` directory, or install the plugin directly through the WordPress plugins screen.
+2. Activate the plugin through the 'Plugins' menu in WordPress.
+3. Go to **Settings > Date Icon Fixer** to configure the plugin.
+
+---
+
+## Requirements
+
+- WordPress 5.0 or higher
+- PHP 7.4 or higher
+
+---
+
+## Screenshots
+
+**
+
+---
+
+## Frequently Asked Questions
+
+**Can I disable Flatpickr on certain forms?**  
+Currently, the plugin replaces all date inputs site-wide. Fine-grained control may be added in future updates.
+
+**Does this affect mobile browsers?**  
+Yes. Mobile browsers will also use Flatpickr instead of the native date input, ensuring consistency.
+
+---
+
+## Changelog
+
+### 1.0.0
+- Initial release
+
+### 1.1.0
+- CSS changes
+
+---
+
+## Credits
+
+- Flatpickr by [@chmln](https://github.com/flatpickr/flatpickr)
+
+---
+
+## License
+
+This plugin is licensed under the [GPLv2 or later](https://www.gnu.org/licenses/gpl-2.0.html).
+
+---
+
+## Author
+
+Made by [Roy Aardenburg](https://royaardenburg.nl/)
