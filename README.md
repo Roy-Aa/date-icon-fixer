@@ -14,4 +14,4 @@ Perfect if you're tired of inconsistent styling or want to deliver a more unifie
 ✅ Enable or disable the feature from your WordPress dashboard
 ✅ Works with Contact Form 7
 
-Plugin made by (Roy Aardenburg)[https://royaardenburg.nl/]
+Plugin made by [Roy Aardenburg](https://royaardenburg.nl/)
