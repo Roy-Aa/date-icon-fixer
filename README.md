@@ -35,7 +35,11 @@ Perfect if you're tired of inconsistent styling and want to deliver a more unifi
 
 ## Screenshots
 
-**
+****
+![WordPressAdmin](assets/img/wordpress-admin.png)
+
+****
+![Preview](assets/img/preview.png)
 
 ---
 

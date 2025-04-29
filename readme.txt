@@ -37,6 +37,9 @@ Just activate and you're good to go!
 = 1.0 =
 * Initial release 🎉
 
+= 1.1 = 
+* CSS changes
+
 == Credits ==
 Plugin developed by [Roy Aardenburg](https://royaardenburg.nl).
 Open source and available on [GitHub](https://github.com/jouw-repo).
