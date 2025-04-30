@@ -22,7 +22,7 @@ Perfect if you're tired of inconsistent styling and want to deliver a more unifi
 
 1. Upload the plugin files to the `/wp-content/plugins/date-icon-fixer` directory, or install the plugin directly through the WordPress plugins screen.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
-3. Go to **Settings > Date Icon Fixer** to configure the plugin.
+3. Go to **Date Icon Fixer** to configure the plugin.
 
 ---
 
