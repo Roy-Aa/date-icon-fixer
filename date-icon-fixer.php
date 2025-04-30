@@ -87,6 +87,26 @@ add_action('admin_menu', function () {
     );
 });
 
+add_action('admin_bar_menu', function ($wp_admin_bar) {
+    if (!current_user_can('manage_options')) return;
+
+    $enabled = get_option('date_icon_fixer_enabled');
+
+    $icon_svg = $enabled
+        ? '<svg xmlns="http://www.w3.org/2000/svg" fill="#00D992" width="20" height="20" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.281-5.285-5.281-3.715 3.715 9 9 15-15z"/></svg>'
+        : '<svg xmlns="http://www.w3.org/2000/svg" fill="#ff4d4d" width="20" height="20" viewBox="0 0 24 24"><path d="M12 10.586l4.95-4.95 1.414 1.414L13.414 12l4.95 4.95-1.414 1.414L12 13.414l-4.95 4.95-1.414-1.414L10.586 12 5.636 7.05l1.414-1.414z"/></svg>';
+
+    $wp_admin_bar->add_node([
+        'id'    => 'flatpickr-status',
+        'title' => 'Flatpickr:' . $icon_svg,
+        'href'  => admin_url('admin.php?page=date-icon-fixer'),
+        'meta'  => [
+            'class' => 'flatpickr-icon-only',
+            'title' => $enabled ? 'Flatpickr is actief' : 'Flatpickr is uitgeschakeld',
+        ],
+    ]);
+}, 100);
+
 add_filter('plugin_action_links_' . plugin_basename(__FILE__), function ($links) {
     $settings_link = '<a href="' . admin_url('admin.php?page=date-icon-fixer') . '">Settings</a>';
     $links[] = $settings_link;
@@ -365,6 +385,19 @@ function date_icon_fixer_settings_page()
         #wpbody-content::selection {
             color: #080f11;
             background: #00D992;
+        }
+
+        #wpadminbar #wp-admin-bar-flatpickr-status>a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 8px;
+            height: 32px;
+            gap: 8px;
+        }
+
+        #wpadminbar #wp-admin-bar-flatpickr-status svg {
+            display: block;
         }
     </style>
 <?php
