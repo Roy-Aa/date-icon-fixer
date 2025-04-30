@@ -4,7 +4,7 @@ Tags: date, input, flatpickr, calendar, firefox
 Requires at least: 5.0
 Tested up to: 6.5
 Requires PHP: 7.2
-Stable tag: 1.1
+Stable tag: 1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,9 +36,6 @@ Just activate and you're good to go!
 
 = 1.0 =
 * Initial release 🎉
-
-= 1.1 = 
-* CSS changes
 
 == Credits ==
 Plugin developed by [Roy Aardenburg](https://royaardenburg.nl).
