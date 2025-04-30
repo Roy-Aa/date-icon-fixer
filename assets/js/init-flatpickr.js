@@ -77,6 +77,8 @@ document.addEventListener("DOMContentLoaded", () => {
       options.weekNumbers = true;
     }
 
+    newInput.setAttribute("placeholder", DateIconFixerSettings.placeholder || "DD-MM-YYYY");
+
     flatpickr(newInput, options);
   });
 });

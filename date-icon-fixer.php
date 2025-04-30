@@ -35,6 +35,7 @@ function dif_enqueue_assets()
         $settings = [
             'dateFormat'     => get_option('date_icon_fixer_format', 'd-m-Y'),
             'disableWeekend' => (bool) get_option('date_icon_fixer_disable_weekend'),
+            'placeholder' => get_option('date_icon_fixer_placeholder', 'DD-MM-YYYY'),
             'minDate'        => get_option('date_icon_fixer_min_date'),
             'maxDate'        => get_option('date_icon_fixer_max_date'),
             'weeksOnly'      => (bool) get_option('date_icon_fixer_weeks_only'),
@@ -61,6 +62,7 @@ add_action('admin_enqueue_scripts', 'dif_enqueue_admin_assets');
 add_action('admin_init', function () {
     register_setting('date_icon_fixer_settings', 'date_icon_fixer_enabled');
     register_setting('date_icon_fixer_settings', 'date_icon_fixer_format');
+    register_setting('date_icon_fixer_settings', 'date_icon_fixer_placeholder');
     register_setting('date_icon_fixer_settings', 'date_icon_fixer_disable_weekend');
     register_setting('date_icon_fixer_settings', 'date_icon_fixer_min_date');
     register_setting('date_icon_fixer_settings', 'date_icon_fixer_max_date');
@@ -99,6 +101,7 @@ add_action('admin_init', function () {
     ) {
         delete_option('date_icon_fixer_enabled');
         delete_option('date_icon_fixer_format');
+        delete_option('date_icon_fixer_placeholder');
         delete_option('date_icon_fixer_disable_weekend');
         delete_option('date_icon_fixer_min_date');
         delete_option('date_icon_fixer_max_date');
@@ -163,8 +166,11 @@ function date_icon_fixer_settings_page()
                         <h3>Activate Flatpickr</h3>
                     </th>
                     <td>
-                        <input type="checkbox" name="date_icon_fixer_enabled" value="1" <?php checked(1, $enabled, true); ?> />
-                        <label>Enable Flatpickr replacement for input[type='date'] fields.</label>
+                        <label class="dif-switch">
+                            <input type="checkbox" name="date_icon_fixer_enabled" value="1" <?php checked(1, $enabled, true); ?> />
+                            <span class="dif-slider round"></span>
+                        </label>
+                        <label style="margin-left: 10px;">Enable Flatpickr replacement for input[type='date'] fields.</label>
                     </td>
                 </tr>
 
@@ -190,13 +196,27 @@ function date_icon_fixer_settings_page()
 
                 <tr>
                     <th scope="row">
+                        <h3>Date Placeholder</h3>
+                    </th>
+                    <td>
+                        <input type="text" name="date_icon_fixer_placeholder" value="<?php echo esc_attr(get_option('date_icon_fixer_placeholder', 'DD-MM-YYYY')); ?>" placeholder="e.g. DD-MM-YYYY" />
+                        <p class="description">This text will appear as a placeholder in date inputs.</p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th scope="row">
                         <h3>Disable Weekends</h3>
                     </th>
                     <td>
-                        <input type="checkbox" name="date_icon_fixer_disable_weekend" value="1" <?php checked(1, $disable_weekend, true); ?> />
-                        <label>Prevent users from selecting Saturdays and Sundays.</label>
+                        <label class="dif-switch">
+                            <input type="checkbox" name="date_icon_fixer_disable_weekend" value="1" <?php checked(1, $disable_weekend, true); ?> />
+                            <span class="dif-slider round"></span>
+                        </label>
+                        <label style="margin-left: 10px;">Prevent users from selecting Saturdays and Sundays.</label>
                     </td>
                 </tr>
+
 
                 <tr>
                     <th scope="row">
@@ -245,8 +265,11 @@ function date_icon_fixer_settings_page()
                         <h3>Enable Week Numbers</h3>
                     </th>
                     <td>
-                        <input type="checkbox" name="date_icon_fixer_enable_week_dates" value="1" <?php checked(1, get_option('date_icon_fixer_enable_week_dates'), true); ?> />
-                        <label>Show week numbers in the calendar view.</label>
+                        <label class="dif-switch">
+                            <input type="checkbox" name="date_icon_fixer_enable_week_dates" value="1" <?php checked(1, get_option('date_icon_fixer_enable_week_dates'), true); ?> />
+                            <span class="dif-slider round"></span>
+                        </label>
+                        <label style="margin-right: 10px;">Show week numbers in the calendar view.</label>
                     </td>
                 </tr>
                 <tr>
@@ -254,8 +277,11 @@ function date_icon_fixer_settings_page()
                         <h3>Weeks Only</h3>
                     </th>
                     <td>
-                        <input type="checkbox" name="date_icon_fixer_weeks_only" value="1" <?php checked(1, get_option('date_icon_fixer_weeks_only'), true); ?> />
-                        <label>Only allow selecting weeks (not specific days).</label>
+                        <label class="dif-switch">
+                            <input type="checkbox" name="date_icon_fixer_weeks_only" value="1" <?php checked(1, get_option('date_icon_fixer_weeks_only'), true); ?> />
+                            <span class="dif-slider round"></span>
+                        </label>
+                        <label style="margin-right: 10px;">Only allow selecting weeks (not specific days).</label>
                     </td>
                 </tr>
                 <tr>
@@ -274,7 +300,7 @@ function date_icon_fixer_settings_page()
                     </th>
                     <td>
                         <input type="text" name="date_icon_fixer_disable_ranges" value="<?php echo esc_attr(get_option('date_icon_fixer_disable_ranges')); ?>" placeholder="01-07-2025 to 10-07-2025" />
-                        <p class="description">Use "start to end" format. Example: `2025-07-01 to 2025-07-10`</p>
+                        <p class="description">Use "start to end" format. Example: `01-07-2025 to 10-07-2025`</p>
                     </td>
                 </tr>
 
@@ -293,8 +319,11 @@ function date_icon_fixer_settings_page()
                         <h3>Allow Multiple Dates Selection</h3>
                     </th>
                     <td>
-                        <input type="checkbox" name="date_icon_fixer_multiple_dates" value="1" <?php checked(1, get_option('date_icon_fixer_multiple_dates'), true); ?> />
-                        <label>Enable selecting multiple dates.</label>
+                        <label class="dif-switch">
+                            <input type="checkbox" name="date_icon_fixer_multiple_dates" value="1" <?php checked(1, get_option('date_icon_fixer_multiple_dates'), true); ?> />
+                            <span class="dif-slider round"></span>
+                        </label>
+                        <label style="margin-right: 10px;">Enable selecting multiple dates.</label>
                     </td>
                 </tr>
             </table>
