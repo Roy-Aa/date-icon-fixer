@@ -56,6 +56,10 @@
   border-radius: 5px !important;
 }
 
+.dif-wrap input[type="text"] {
+  width: 20%;
+}
+
 .dif-version {
   font-size: 0.8em;
   color: #666;

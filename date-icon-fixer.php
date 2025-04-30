@@ -33,10 +33,16 @@ function dif_enqueue_assets()
         wp_enqueue_script('init-flatpickr', $plugin_url . 'assets/js/init-flatpickr.js', ['flatpickr-js'], null, true);
 
         $settings = [
-            'dateFormat'     => get_option('date_icon_fixer_format', 'Y-m-d'),
+            'dateFormat'     => get_option('date_icon_fixer_format', 'd-m-Y'),
             'disableWeekend' => (bool) get_option('date_icon_fixer_disable_weekend'),
             'minDate'        => get_option('date_icon_fixer_min_date'),
             'maxDate'        => get_option('date_icon_fixer_max_date'),
+            'weeksOnly'      => (bool) get_option('date_icon_fixer_weeks_only'),
+            'disableDates'   => get_option('date_icon_fixer_disable_dates'),
+            'disableRanges'  => get_option('date_icon_fixer_disable_ranges'),
+            'enableOnly'     => get_option('date_icon_fixer_enable_only'),
+            'multipleDates'  => (bool) get_option('date_icon_fixer_multiple_dates'),
+            'weekNumbers'    => (bool) get_option('date_icon_fixer_enable_week_dates'),
         ];
 
         wp_localize_script('init-flatpickr', 'DateIconFixerSettings', $settings);
@@ -59,6 +65,12 @@ add_action('admin_init', function () {
     register_setting('date_icon_fixer_settings', 'date_icon_fixer_min_date');
     register_setting('date_icon_fixer_settings', 'date_icon_fixer_max_date');
     register_setting('date_icon_fixer_settings', 'date_icon_fixer_theme');
+    register_setting('date_icon_fixer_settings', 'date_icon_fixer_weeks_only');
+    register_setting('date_icon_fixer_settings', 'date_icon_fixer_disable_dates');
+    register_setting('date_icon_fixer_settings', 'date_icon_fixer_disable_ranges');
+    register_setting('date_icon_fixer_settings', 'date_icon_fixer_enable_only');
+    register_setting('date_icon_fixer_settings', 'date_icon_fixer_multiple_dates');
+    register_setting('date_icon_fixer_settings', 'date_icon_fixer_enable_week_dates');
 });
 
 add_action('admin_menu', function () {
@@ -90,6 +102,13 @@ add_action('admin_init', function () {
         delete_option('date_icon_fixer_disable_weekend');
         delete_option('date_icon_fixer_min_date');
         delete_option('date_icon_fixer_max_date');
+        delete_option('date_icon_fixer_theme');
+        delete_option('date_icon_fixer_weeks_only');
+        delete_option('date_icon_fixer_disable_dates');
+        delete_option('date_icon_fixer_disable_ranges');
+        delete_option('date_icon_fixer_enable_only');
+        delete_option('date_icon_fixer_multiple_dates');
+        delete_option('date_icon_fixer_enable_week_dates');
 
         wp_redirect(admin_url('admin.php?page=date-icon-fixer&reset-success=1'));
         exit;
@@ -221,8 +240,64 @@ function date_icon_fixer_settings_page()
                         <p class="description"><span class="dif-text-heading">- </span>Wrapper class: `flatpickr-calendar`</p>
                     </td>
                 </tr>
-            </table>
+                <tr>
+                    <th scope="row">
+                        <h3>Enable Week Numbers</h3>
+                    </th>
+                    <td>
+                        <input type="checkbox" name="date_icon_fixer_enable_week_dates" value="1" <?php checked(1, get_option('date_icon_fixer_enable_week_dates'), true); ?> />
+                        <label>Show week numbers in the calendar view.</label>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <h3>Weeks Only</h3>
+                    </th>
+                    <td>
+                        <input type="checkbox" name="date_icon_fixer_weeks_only" value="1" <?php checked(1, get_option('date_icon_fixer_weeks_only'), true); ?> />
+                        <label>Only allow selecting weeks (not specific days).</label>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <h3>Disable Specific Dates</h3>
+                    </th>
+                    <td>
+                        <input type="text" name="date_icon_fixer_disable_dates" value="<?php echo esc_attr(get_option('date_icon_fixer_disable_dates')); ?>" placeholder="25-12-2025,01-01-2025" />
+                        <p class="description">Comma-separated dates to disable.</p>
+                    </td>
+                </tr>
 
+                <tr>
+                    <th scope="row">
+                        <h3>Disable Range of Dates</h3>
+                    </th>
+                    <td>
+                        <input type="text" name="date_icon_fixer_disable_ranges" value="<?php echo esc_attr(get_option('date_icon_fixer_disable_ranges')); ?>" placeholder="01-07-2025 to 10-07-2025" />
+                        <p class="description">Use "start to end" format. Example: `2025-07-01 to 2025-07-10`</p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th scope="row">
+                        <h3>Enable Only Specific Dates</h3>
+                    </th>
+                    <td>
+                        <input type="text" name="date_icon_fixer_enable_only" value="<?php echo esc_attr(get_option('date_icon_fixer_enable_only')); ?>" placeholder="01-05-2025,10-05-2025" />
+                        <p class="description">Comma-separated dates to enable, all others will be disabled.</p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th scope="row">
+                        <h3>Allow Multiple Dates Selection</h3>
+                    </th>
+                    <td>
+                        <input type="checkbox" name="date_icon_fixer_multiple_dates" value="1" <?php checked(1, get_option('date_icon_fixer_multiple_dates'), true); ?> />
+                        <label>Enable selecting multiple dates.</label>
+                    </td>
+                </tr>
+            </table>
             <?php submit_button('Save Changes', 'dif-button-primary', 'submit', true); ?>
         </form>
 
