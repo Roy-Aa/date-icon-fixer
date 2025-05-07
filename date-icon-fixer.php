@@ -51,6 +51,10 @@ function dif_enqueue_assets()
 }
 add_action('wp_enqueue_scripts', 'dif_enqueue_assets');
 
+add_action('plugins_loaded', function () {
+    load_plugin_textdomain('date-icon-fixer', false, dirname(plugin_basename(__FILE__)) . '/languages');
+});
+
 function dif_enqueue_admin_assets()
 {
     $plugin_url = plugin_dir_url(__FILE__);
@@ -86,26 +90,6 @@ add_action('admin_menu', function () {
         1000
     );
 });
-
-add_action('admin_bar_menu', function ($wp_admin_bar) {
-    if (!current_user_can('manage_options')) return;
-
-    $enabled = get_option('date_icon_fixer_enabled');
-
-    $icon_svg = $enabled
-        ? '<svg xmlns="http://www.w3.org/2000/svg" fill="#00D992" width="20" height="20" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.281-5.285-5.281-3.715 3.715 9 9 15-15z"/></svg>'
-        : '<svg xmlns="http://www.w3.org/2000/svg" fill="#ff4d4d" width="20" height="20" viewBox="0 0 24 24"><path d="M12 10.586l4.95-4.95 1.414 1.414L13.414 12l4.95 4.95-1.414 1.414L12 13.414l-4.95 4.95-1.414-1.414L10.586 12 5.636 7.05l1.414-1.414z"/></svg>';
-
-    $wp_admin_bar->add_node([
-        'id'    => 'flatpickr-status',
-        'title' => 'Flatpickr:' . $icon_svg,
-        'href'  => admin_url('admin.php?page=date-icon-fixer'),
-        'meta'  => [
-            'class' => 'flatpickr-icon-only',
-            'title' => $enabled ? 'Flatpickr is actief' : 'Flatpickr is uitgeschakeld',
-        ],
-    ]);
-}, 100);
 
 add_filter('plugin_action_links_' . plugin_basename(__FILE__), function ($links) {
     $settings_link = '<a href="' . admin_url('admin.php?page=date-icon-fixer') . '">Settings</a>';
@@ -149,25 +133,25 @@ function date_icon_fixer_settings_page()
                 </svg>
                 <h1>Date Icon Fixer <span class="dif-version">v1.0</span></h1>
             </div>
-            <p>A plugin to replace the annoying Firefox calendar icon with a Flatpickr date picker.</p>
+            <p><?php _e('A plugin to replace the annoying', 'date-icon-fixer'); ?> Firefox <?php _e('calendar icon with a', 'date-icon-fixer'); ?> Flatpickr <?php _e('date picker.', 'date-icon-fixer'); ?></p>
         </div>
 
         <div class="dif-text-svg">
             <svg fill="#00D992" width="24" height="24" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="m12.002 2.005c5.518 0 9.998 4.48 9.998 9.997 0 5.518-4.48 9.998-9.998 9.998-5.517 0-9.997-4.48-9.997-9.998 0-5.517 4.48-9.997 9.997-9.997zm0 1.5c-4.69 0-8.497 3.807-8.497 8.497s3.807 8.498 8.497 8.498 8.498-3.808 8.498-8.498-3.808-8.497-8.498-8.497zm0 6.5c-.414 0-.75.336-.75.75v5.5c0 .414.336.75.75.75s.75-.336.75-.75v-5.5c0-.414-.336-.75-.75-.75zm-.002-3c.552 0 1 .448 1 1s-.448 1-1 1-1-.448-1-1 .448-1 1-1z" fill-rule="nonzero" />
             </svg>
-            <h2>What is Flatpickr?</h2>
+            <h2><?php _e('What is', 'date-icon-fixer'); ?> Flatpickr?</h2>
         </div>
-        <p>Flatpickr is a lightweight and powerful datetime picker.</p>
-        <p>Lean, UX-driven, and extensible, yet it doesn’t depend on any libraries. Minimal UI but many themes.</p>
+        <p>Flatpickr <?php _e('is a lightweight and powerful datetime picker.', 'date-icon-fixer'); ?></p>
+        <p><?php _e('Lean, UX-driven, and extensible, yet it doesn’t depend on any libraries. Minimal UI but many themes.', 'date-icon-fixer'); ?></p>
 
         <div class="dif-text-svg" style="margin-top: 20px;">
             <svg xmlns="http://www.w3.org/2000/svg" fill="#00D992" width="24" height="24" viewBox="0 0 24 24">
                 <path d="M24 14.187v-4.374c-2.148-.766-2.726-.802-3.027-1.529-.303-.729.083-1.169 1.059-3.223l-3.093-3.093c-2.026.963-2.488 1.364-3.224 1.059-.727-.302-.768-.889-1.527-3.027h-4.375c-.764 2.144-.8 2.725-1.529 3.027-.752.313-1.203-.1-3.223-1.059l-3.093 3.093c.977 2.055 1.362 2.493 1.059 3.224-.302.727-.881.764-3.027 1.528v4.375c2.139.76 2.725.8 3.027 1.528.304.734-.081 1.167-1.059 3.223l3.093 3.093c1.999-.95 2.47-1.373 3.223-1.059.728.302.764.88 1.529 3.027h4.374c.758-2.131.799-2.723 1.537-3.031.745-.308 1.186.099 3.215 1.062l3.093-3.093c-.975-2.05-1.362-2.492-1.059-3.223.3-.726.88-.763 3.027-1.528zm-4.875.764c-.577 1.394-.068 2.458.488 3.578l-1.084 1.084c-1.093-.543-2.161-1.076-3.573-.49-1.396.581-1.79 1.693-2.188 2.877h-1.534c-.398-1.185-.791-2.297-2.183-2.875-1.419-.588-2.507-.045-3.579.488l-1.083-1.084c.557-1.118 1.066-2.18.487-3.58-.579-1.391-1.691-1.784-2.876-2.182v-1.533c1.185-.398 2.297-.791 2.875-2.184.578-1.394.068-2.459-.488-3.579l1.084-1.084c1.082.538 2.162 1.077 3.58.488 1.392-.577 1.785-1.69 2.183-2.875h1.534c.398 1.185.792 2.297 2.184 2.875 1.419.588 2.506.045 3.579-.488l1.084 1.084c-.556 1.121-1.065 2.187-.488 3.58.577 1.391 1.689 1.784 2.875 2.183v1.534c-1.188.398-2.302.791-2.877 2.183zm-7.125-5.951c1.654 0 3 1.346 3 3s-1.346 3-3 3-3-1.346-3-3 1.346-3 3-3zm0-2c-2.762 0-5 2.238-5 5s2.238 5 5 5 5-2.238 5-5-2.238-5-5-5z" />
             </svg>
-            <h2>Date Icon Fixer Settings</h2>
+            <h2>Date Icon Fixer <?php _e('Settings', 'date-icon-fixer'); ?></h2>
         </div>
-        <p>Replace the annoying Firefox calendar icon with a Flatpickr date picker.</p>
+        <p><?php _e('Replace the annoying', 'date-icon-fixer'); ?> Firefox <?php _e('calendar icon with a ', 'date-icon-fixer'); ?>Flatpickr <?php _e('date picker.', 'date-icon-fixer'); ?></p>
 
         <form method="post" action="options.php">
             <?php
@@ -183,20 +167,20 @@ function date_icon_fixer_settings_page()
             <table class="form-table">
                 <tr>
                     <th scope="row">
-                        <h3>Activate Flatpickr</h3>
+                        <h3><?php _e('Activate', 'date-icon-fixer'); ?> Flatpickr</h3>
                     </th>
                     <td>
                         <label class="dif-switch">
                             <input type="checkbox" name="date_icon_fixer_enabled" value="1" <?php checked(1, $enabled, true); ?> />
                             <span class="dif-slider round"></span>
                         </label>
-                        <label style="margin-left: 10px;">Enable Flatpickr replacement for input[type='date'] fields.</label>
+                        <label style="margin-left: 10px;"><?php _e('Enable', 'date-icon-fixer'); ?> Flatpickr <?php _e('replacement for ', 'date-icon-fixer'); ?>input[type='date']<?php _e(' fields.', 'date-icon-fixer'); ?></label>
                     </td>
                 </tr>
 
                 <tr>
                     <th scope="row">
-                        <h3>Date Format</h3>
+                        <h3><?php _e('Date Format', 'date-icon-fixer'); ?></h3>
                     </th>
                     <td>
                         <select name="date_icon_fixer_format">
@@ -210,151 +194,149 @@ function date_icon_fixer_settings_page()
                             <option value="m.d.Y" <?php selected($date_format, 'm.d.Y'); ?>>04.24.2025</option>
                             <option value="Y.m.d" <?php selected($date_format, 'Y.m.d'); ?>>2025.04.24</option>
                         </select>
-                        <p class="description">Choose a date format for the calendar.</p>
+                        <p class="description"><?php _e('Choose a date format for the calendar.', 'date-icon-fixer'); ?></p>
                     </td>
                 </tr>
 
                 <tr>
                     <th scope="row">
-                        <h3>Date Placeholder</h3>
+                        <h3><?php _e('Date Placeholder', 'date-icon-fixer'); ?></h3>
                     </th>
                     <td>
                         <input type="text" name="date_icon_fixer_placeholder" value="<?php echo esc_attr(get_option('date_icon_fixer_placeholder', 'DD-MM-YYYY')); ?>" placeholder="e.g. DD-MM-YYYY" />
-                        <p class="description">This text will appear as a placeholder in date inputs.</p>
+                        <p class="description"><?php _e('This text will appear as a placeholder in date inputs.', 'date-icon-fixer'); ?></p>
                     </td>
                 </tr>
 
                 <tr>
                     <th scope="row">
-                        <h3>Disable Weekends</h3>
+                        <h3><?php _e('Disable Weekends', 'date-icon-fixer'); ?></h3>
                     </th>
                     <td>
                         <label class="dif-switch">
                             <input type="checkbox" name="date_icon_fixer_disable_weekend" value="1" <?php checked(1, $disable_weekend, true); ?> />
                             <span class="dif-slider round"></span>
                         </label>
-                        <label style="margin-left: 10px;">Prevent users from selecting Saturdays and Sundays.</label>
+                        <label style="margin-left: 10px;"><?php _e('Prevent users from selecting Saturdays and Sundays.', 'date-icon-fixer'); ?></label>
                     </td>
                 </tr>
 
 
                 <tr>
                     <th scope="row">
-                        <h3>Minimum Date</h3>
+                        <h3><?php _e('Minimum Date', 'date-icon-fixer'); ?></h3>
                     </th>
                     <td>
                         <input type="text" name="date_icon_fixer_min_date" value="<?php echo esc_attr($min_date); ?>" placeholder="e.g. 01-01-2025" />
-                        <p class="description">Choose a minimum date for the calendar.</p>
+                        <p class="description"><?php _e('Choose a minimum date for the calendar.', 'date-icon-fixer'); ?></p>
                     </td>
                 </tr>
 
                 <tr>
                     <th scope="row">
-                        <h3>Maximum Date</h3>
+                        <h3><?php _e('Maximum Date', 'date-icon-fixer'); ?></h3>
                     </th>
                     <td>
                         <input type="text" name="date_icon_fixer_max_date" value="<?php echo esc_attr($max_date); ?>" placeholder="e.g. 31-12-2025" />
-                        <p class="description">Choose a maximum date for the calendar.</p>
+                        <p class="description"><?php _e('Choose a maximum date for the calendar.', 'date-icon-fixer'); ?></p>
                     </td>
                 </tr>
 
                 <tr>
                     <th scope="row">
-                        <h3>Change Theme</h3>
+                        <h3><?php _e('Change Theme', 'date-icon-fixer'); ?></h3>
                     </th>
                     <td>
                         <select name="date_icon_fixer_theme">
-                            <option value="">Default</option>
-                            <option value="dark" <?php selected(get_option('date_icon_fixer_theme'), 'dark'); ?>>Dark</option>
-                            <option value="light" <?php selected(get_option('date_icon_fixer_theme'), 'light'); ?>>Light</option>
+                            <option value="">Default</option><?php _e('', 'date-icon-fixer'); ?>
+                            <option value="dark" <?php selected(get_option('date_icon_fixer_theme'), 'dark'); ?>><?php _e('Dark', 'date-icon-fixer'); ?></option>
+                            <option value="light" <?php selected(get_option('date_icon_fixer_theme'), 'light'); ?>><?php _e('Light', 'date-icon-fixer'); ?></option>
                             <option value="confetti" <?php selected(get_option('date_icon_fixer_theme'), 'confetti'); ?>>Confetti</option>
                             <option value="airbnb" <?php selected(get_option('date_icon_fixer_theme'), 'airbnb'); ?>>Airbnb</option>
-                            <option value="material_blue" <?php selected(get_option('date_icon_fixer_theme'), 'material_blue'); ?>>Blue</option>
-                            <option value="material_green" <?php selected(get_option('date_icon_fixer_theme'), 'material_green'); ?>>Green</option>
-                            <option value="material_orange" <?php selected(get_option('date_icon_fixer_theme'), 'material_orange'); ?>>Orange</option>
-                            <option value="material_red" <?php selected(get_option('date_icon_fixer_theme'), 'material_red'); ?>>Red</option>
+                            <option value="material_blue" <?php selected(get_option('date_icon_fixer_theme'), 'material_blue'); ?>><?php _e('Blue', 'date-icon-fixer'); ?></option>
+                            <option value="material_green" <?php selected(get_option('date_icon_fixer_theme'), 'material_green'); ?>><?php _e('Green', 'date-icon-fixer'); ?></option>
+                            <option value="material_orange" <?php selected(get_option('date_icon_fixer_theme'), 'material_orange'); ?>><?php _e('Orange', 'date-icon-fixer'); ?></option>
+                            <option value="material_red" <?php selected(get_option('date_icon_fixer_theme'), 'material_red'); ?>><?php _e('Red', 'date-icon-fixer'); ?></option>
                         </select>
-                        <p class="description">Choose a theme for the calendar.</p>
-                        <p class="description">For custom themes you must add your own CSS or create your own theme.</p>
+                        <p class="description"><?php _e('Choose a theme for the calendar.', 'date-icon-fixer'); ?></p>
+                        <p class="description"><?php _e('For custom themes you must add your own CSS or create your own theme.', 'date-icon-fixer'); ?></p>
                         <p class="description"><span class="dif-text-heading">- </span>Path: `/plugins/date-icon-fixer/assets/css/themes/...`</p>
                         <p class="description"><span class="dif-text-heading">- </span>Wrapper class: `flatpickr-calendar`</p>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">
-                        <h3>Enable Week Numbers</h3>
+                        <h3><?php _e('Enable Week Numbers', 'date-icon-fixer'); ?></h3>
                     </th>
                     <td>
                         <label class="dif-switch">
                             <input type="checkbox" name="date_icon_fixer_enable_week_dates" value="1" <?php checked(1, get_option('date_icon_fixer_enable_week_dates'), true); ?> />
                             <span class="dif-slider round"></span>
                         </label>
-                        <label style="margin-right: 10px;">Show week numbers in the calendar view.</label>
+                        <label style="margin-left: 10px;"><?php _e('Show week numbers in the calendar view.', 'date-icon-fixer'); ?></label>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">
-                        <h3>Weeks Only</h3>
+                        <h3><?php _e('Weeks Only', 'date-icon-fixer'); ?></h3>
                     </th>
                     <td>
                         <label class="dif-switch">
                             <input type="checkbox" name="date_icon_fixer_weeks_only" value="1" <?php checked(1, get_option('date_icon_fixer_weeks_only'), true); ?> />
                             <span class="dif-slider round"></span>
                         </label>
-                        <label style="margin-right: 10px;">Only allow selecting weeks (not specific days).</label>
+                        <label style="margin-left: 10px;"><?php _e('Only allow selecting weeks (not specific days).', 'date-icon-fixer'); ?></label>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">
-                        <h3>Disable Specific Dates</h3>
+                        <h3><?php _e('Disable Specific Dates', 'date-icon-fixer'); ?></h3>
                     </th>
                     <td>
                         <input type="text" name="date_icon_fixer_disable_dates" value="<?php echo esc_attr(get_option('date_icon_fixer_disable_dates')); ?>" placeholder="25-12-2025,01-01-2025" />
-                        <p class="description">Comma-separated dates to disable.</p>
+                        <p class="description"><?php _e('Comma-separated dates to disable.', 'date-icon-fixer'); ?></p>
                     </td>
                 </tr>
 
                 <tr>
                     <th scope="row">
-                        <h3>Disable Range of Dates</h3>
+                        <h3><?php _e('Disable Range of Dates', 'date-icon-fixer'); ?></h3>
                     </th>
                     <td>
                         <input type="text" name="date_icon_fixer_disable_ranges" value="<?php echo esc_attr(get_option('date_icon_fixer_disable_ranges')); ?>" placeholder="01-07-2025 to 10-07-2025" />
-                        <p class="description">Use "start to end" format. Example: `01-07-2025 to 10-07-2025`</p>
+                        <p class="description"><?php _e('Use "start to end" format. Example: `01-07-2025 to 10-07-2025`', 'date-icon-fixer'); ?></p>
                     </td>
                 </tr>
 
                 <tr>
                     <th scope="row">
-                        <h3>Enable Only Specific Dates</h3>
+                        <h3><?php _e('Enable Only Specific Dates', 'date-icon-fixer'); ?></h3>
                     </th>
                     <td>
                         <input type="text" name="date_icon_fixer_enable_only" value="<?php echo esc_attr(get_option('date_icon_fixer_enable_only')); ?>" placeholder="01-05-2025,10-05-2025" />
-                        <p class="description">Comma-separated dates to enable, all others will be disabled.</p>
+                        <p class="description"><?php _e('Comma-separated dates to enable, all others will be disabled.', 'date-icon-fixer'); ?></p>
                     </td>
                 </tr>
 
                 <tr>
                     <th scope="row">
-                        <h3>Allow Multiple Dates Selection</h3>
+                        <h3><?php _e('Allow Multiple Dates Selection', 'date-icon-fixer'); ?></h3>
                     </th>
                     <td>
                         <label class="dif-switch">
                             <input type="checkbox" name="date_icon_fixer_multiple_dates" value="1" <?php checked(1, get_option('date_icon_fixer_multiple_dates'), true); ?> />
                             <span class="dif-slider round"></span>
                         </label>
-                        <label style="margin-right: 10px;">Enable selecting multiple dates.</label>
+                        <label style="margin-left: 10px;"><?php _e('Enable selecting multiple dates.', 'date-icon-fixer'); ?></label>
                     </td>
                 </tr>
             </table>
-            <?php submit_button('Save Changes', 'dif-button-primary', 'submit', true); ?>
+            <?php submit_button(__('Save Changes', 'date-icon-fixer'), 'dif-button-primary', 'submit', true); ?>
         </form>
 
         <p>
-            <a href="<?php echo esc_url(admin_url('admin.php?page=date-icon-fixer&reset-date-icon-fixer=1')); ?>"
-                class="dif-button-dateicon-fixer"
-                onclick="return confirm('Are you sure you want to reset all settings to default?');">
-                Reset to Default Settings
+            <a href="<?php echo esc_url(admin_url('admin.php?page=date-icon-fixer&reset-date-icon-fixer=1')); ?>" class="dif-button-dateicon-fixer" onclick="return confirm('<?php echo esc_js(__('Are you sure you want to reset all settings to default?', 'date-icon-fixer')); ?>');">
+                 <?php _e('Reset to Default Settings', 'date-icon-fixer'); ?>
             </a>
         </p>
 
@@ -363,13 +345,13 @@ function date_icon_fixer_settings_page()
                 <svg fill="#00D992" width="24" height="24" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="m12.002 2.005c5.518 0 9.998 4.48 9.998 9.997 0 5.518-4.48 9.998-9.998 9.998-5.517 0-9.997-4.48-9.997-9.998 0-5.517 4.48-9.997 9.997-9.997zm0 1.5c-4.69 0-8.497 3.807-8.497 8.497s3.807 8.498 8.497 8.498 8.498-3.808 8.498-8.498-3.808-8.497-8.498-8.497zm0 6.5c-.414 0-.75.336-.75.75v5.5c0 .414.336.75.75.75s.75-.336.75-.75v-5.5c0-.414-.336-.75-.75-.75zm-.002-3c.552 0 1 .448 1 1s-.448 1-1 1-1-.448-1-1 .448-1 1-1z" fill-rule="nonzero" />
                 </svg>
-                <p>Settings have been reset to default.</p>
+                <p><?php _e('Settings have been reset to default.', 'date-icon-fixer'); ?></p>
             </div>
         <?php endif; ?>
 
         <div class="dif-footer">
-            <p>Plugin by <a href="https://royaardenburg.nl" target="_blank">Roy Aardenburg</a></p>
-            <p>Plugin is open source and available on <a href="https://github.com/Roy-Aa/date-icon-fixer">GitHub</a>.</p>
+        <p><?php _e('Plugin by', 'date-icon-fixer'); ?> <a href="https://royaardenburg.nl" target="_blank">Roy Aardenburg</a></p>
+        <p><?php _e('Plugin is open source and available on', 'date-icon-fixer'); ?> <a href="https://github.com/Roy-Aa/date-icon-fixer">GitHub</a>.</p>
         </div>
     </div>
     <style>
@@ -385,19 +367,6 @@ function date_icon_fixer_settings_page()
         #wpbody-content::selection {
             color: #080f11;
             background: #00D992;
-        }
-
-        #wpadminbar #wp-admin-bar-flatpickr-status>a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0 8px;
-            height: 32px;
-            gap: 8px;
-        }
-
-        #wpadminbar #wp-admin-bar-flatpickr-status svg {
-            display: block;
         }
     </style>
 <?php

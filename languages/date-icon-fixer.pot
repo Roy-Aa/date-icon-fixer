@@ -1,0 +1,237 @@
+# Copyright (C) 2025 Roy Aardenburg
+# This file is distributed under the GPL2.
+msgid ""
+msgstr ""
+"Project-Id-Version: Date Icon Fixer 1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/date-icon-fixer\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-05-01T08:09:01+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.11.0\n"
+"X-Domain: date-icon-fixer\n"
+
+#. Plugin Name of the plugin
+#: date-icon-fixer.php
+msgid "Date Icon Fixer"
+msgstr ""
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+#: date-icon-fixer.php
+msgid "https://royaardenburg.nl"
+msgstr ""
+
+#. Description of the plugin
+#: date-icon-fixer.php
+msgid "Replaces all input[type=\"date\"] fields on the frontend with Flatpickr to remove the annoying Firefox calendar icon."
+msgstr ""
+
+#. Author of the plugin
+#: date-icon-fixer.php
+msgid "Roy Aardenburg"
+msgstr ""
+
+#: date-icon-fixer.php:132
+msgid "A plugin to replace the annoying"
+msgstr ""
+
+#: date-icon-fixer.php:132
+msgid "calendar icon with a"
+msgstr ""
+
+#: date-icon-fixer.php:132
+#: date-icon-fixer.php:150
+msgid "date picker."
+msgstr ""
+
+#: date-icon-fixer.php:139
+msgid "What is"
+msgstr ""
+
+#: date-icon-fixer.php:141
+msgid "is a lightweight and powerful datetime picker."
+msgstr ""
+
+#: date-icon-fixer.php:142
+msgid "Lean, UX-driven, and extensible, yet it doesn’t depend on any libraries. Minimal UI but many themes."
+msgstr ""
+
+#: date-icon-fixer.php:148
+msgid "Settings"
+msgstr ""
+
+#: date-icon-fixer.php:150
+msgid "Replace the annoying"
+msgstr ""
+
+#: date-icon-fixer.php:150
+msgid "calendar icon with a "
+msgstr ""
+
+#: date-icon-fixer.php:166
+msgid "Activate"
+msgstr ""
+
+#: date-icon-fixer.php:173
+msgid "Enable"
+msgstr ""
+
+#: date-icon-fixer.php:173
+msgid "replacement for "
+msgstr ""
+
+#: date-icon-fixer.php:173
+msgid " fields."
+msgstr ""
+
+#: date-icon-fixer.php:179
+msgid "Date Format"
+msgstr ""
+
+#: date-icon-fixer.php:193
+msgid "Choose a date format for the calendar."
+msgstr ""
+
+#: date-icon-fixer.php:199
+msgid "Date Placeholder"
+msgstr ""
+
+#: date-icon-fixer.php:203
+msgid "This text will appear as a placeholder in date inputs."
+msgstr ""
+
+#: date-icon-fixer.php:209
+msgid "Disable Weekends"
+msgstr ""
+
+#: date-icon-fixer.php:216
+msgid "Prevent users from selecting Saturdays and Sundays."
+msgstr ""
+
+#: date-icon-fixer.php:223
+msgid "Minimum Date"
+msgstr ""
+
+#: date-icon-fixer.php:227
+msgid "Choose a minimum date for the calendar."
+msgstr ""
+
+#: date-icon-fixer.php:233
+msgid "Maximum Date"
+msgstr ""
+
+#: date-icon-fixer.php:237
+msgid "Choose a maximum date for the calendar."
+msgstr ""
+
+#: date-icon-fixer.php:243
+msgid "Change Theme"
+msgstr ""
+
+#: date-icon-fixer.php:248
+msgid "Dark"
+msgstr ""
+
+#: date-icon-fixer.php:249
+msgid "Light"
+msgstr ""
+
+#: date-icon-fixer.php:252
+msgid "Blue"
+msgstr ""
+
+#: date-icon-fixer.php:253
+msgid "Green"
+msgstr ""
+
+#: date-icon-fixer.php:254
+msgid "Orange"
+msgstr ""
+
+#: date-icon-fixer.php:255
+msgid "Red"
+msgstr ""
+
+#: date-icon-fixer.php:257
+msgid "Choose a theme for the calendar."
+msgstr ""
+
+#: date-icon-fixer.php:258
+msgid "For custom themes you must add your own CSS or create your own theme."
+msgstr ""
+
+#: date-icon-fixer.php:265
+msgid "Enable Week Numbers"
+msgstr ""
+
+#: date-icon-fixer.php:272
+msgid "Show week numbers in the calendar view."
+msgstr ""
+
+#: date-icon-fixer.php:277
+msgid "Weeks Only"
+msgstr ""
+
+#: date-icon-fixer.php:284
+msgid "Only allow selecting weeks (not specific days)."
+msgstr ""
+
+#: date-icon-fixer.php:289
+msgid "Disable Specific Dates"
+msgstr ""
+
+#: date-icon-fixer.php:293
+msgid "Comma-separated dates to disable."
+msgstr ""
+
+#: date-icon-fixer.php:299
+msgid "Disable Range of Dates"
+msgstr ""
+
+#: date-icon-fixer.php:303
+msgid "Use \"start to end\" format. Example: `01-07-2025 to 10-07-2025`"
+msgstr ""
+
+#: date-icon-fixer.php:309
+msgid "Enable Only Specific Dates"
+msgstr ""
+
+#: date-icon-fixer.php:313
+msgid "Comma-separated dates to enable, all others will be disabled."
+msgstr ""
+
+#: date-icon-fixer.php:319
+msgid "Allow Multiple Dates Selection"
+msgstr ""
+
+#: date-icon-fixer.php:326
+msgid "Enable selecting multiple dates."
+msgstr ""
+
+#: date-icon-fixer.php:330
+msgid "Save Changes"
+msgstr ""
+
+#: date-icon-fixer.php:334
+msgid "Are you sure you want to reset all settings to default?"
+msgstr ""
+
+#: date-icon-fixer.php:335
+msgid "Reset to Default Settings"
+msgstr ""
+
+#: date-icon-fixer.php:344
+msgid "Settings have been reset to default."
+msgstr ""
+
+#: date-icon-fixer.php:349
+msgid "Plugin by"
+msgstr ""
+
+#: date-icon-fixer.php:350
+msgid "Plugin is open source and available on"
+msgstr ""
